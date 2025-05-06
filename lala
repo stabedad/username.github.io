@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фотопортфолио | Иван Петров</title>
+    <style>
+        /* Основные стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Шапка и навигация */
+        header {
+            background-color: #000;
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #ccc;
+        }
+        
+        /* Герой-секция */
+        .hero {
+            height: 80vh;
+            background: url('https://example.com/hero-bg.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .hero-content {
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #fff;
+            color: #000;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        /* О фотографе */
+        .about {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Галерея */
+        .portfolio {
+            padding: 5rem 2rem;
+            background-color: #f0f0f0;
+        }
+        
+        .portfolio h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .gallery {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            aspect-ratio: 4/3;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+        
+        /* Контакты */
+        .contact {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-content {
+            display: flex;
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .contact-info p {
+            margin-bottom: 1rem;
+        }
+        
+        .contact-form {
+            flex: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+        }
+        
+        /* Подвал */
+        footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .social-links {
+            margin: 1rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #ccc;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+            }
+            
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content,
+            .contact-content {
+                flex-direction: column;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка с навигацией -->
+    <header>
+        <div class="header-container">
+            <div class="logo">ИВАН ПЕТРОВ</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#about">Обо мне</a></li>
+                    <li><a href="#portfolio">Портфолио</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Герой-секция -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>ПРОФЕССИОНАЛЬНАЯ ФОТОГРАФИЯ</h1>
+            <p>Запечатлеваю моменты, которые останутся с вами навсегда</p>
+            <a href="#portfolio" class="btn">Смотреть работы</a>
+        </div>
+    </section>
+
+    <!-- О фотографе -->
+    <section class="about" id="about">
+        <h2>О ФОТОГРАФЕ</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Привет, я Иван Петров - профессиональный фотограф с 10-летним опытом работы в различных жанрах фотографии.</p>
+                <p>Моя специализация - свадебная, портретная и предметная фотография. Я работаю как в студии, так и на выездных локациях.</p>
+                <p>Мой подход к работе - это внимание к деталям, естественность и умение поймать тот самый момент, который делает фотографию особенной.</p>
+                <p>Я использую профессиональное оборудование Canon и работаю только с проверенными студиями и ретушерами.</p>
+            </div>
+            <div class="about-img">
+                <img src="https://example.com/photographer.jpg" alt="Фотограф Иван Петров">
+            </div>
+        </div>
+    </section>
+
+    <!-- Портфолио -->
+    <section class="portfolio" id="portfolio">
+        <h2>МОИ РАБОТЫ</h2>
+        <div class="gallery">
+            <!-- Примеры работ -->
+            <div class="gallery-item">
+                <img src="https://example.com/photo1.jpg" alt="Свадебная фотография">
+                <div class="gallery-item-overlay">
+                    <h3>Свадьба Алины и Максима</h3>
+                    <p>2023 год</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://example.com/photo2.jpg" alt="Портретная съемка">
+                <div class="gallery-item-overlay">
+                    <h3>Портретная сессия</h3>
+                    <p>Студия Light</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://example.com/photo3.jpg" alt="Предметная фотография">
+                <div class="gallery-item-overlay">
+                    <h3>Рекламная съемка</h3>
+                    <p>Для бренда косметики</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://example.com/photo4.jpg" alt="Семейная фотография">
+                <div class="gallery-item-overlay">
+                    <h3>Семейная фотосессия</h3>
+                    <p>Парк Горького</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://example.com/photo5.jpg" alt="Фэшн съемка">
+                <div class="gallery-item-overlay">
+                    <h3>Фэшн проект</h3>
+                    <p>Коллаборация с дизайнером</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://example.com/photo6.jpg" alt="Пейзажная фотография">
+                <div class="gallery-item-overlay">
+                    <h3>Путешествия</h3>
+                    <p>Исландия, 2022</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="contact" id="contact">
+        <h2>СВЯЗАТЬСЯ СО МНОЙ</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Контактная информация</h3>
+                <p><strong>Email:</strong> ivan@example.com</p>
+                <p><strong>Телефон:</strong> +7 (123) 456-78-90</p>
+                <p><strong>Студия:</strong> Москва, ул. Фотографов, 15</p>
+                <p>Работаю по предварительной записи. Доступен для выездных съемок.</p>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Ваше имя</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Сообщение</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="logo">ИВАН ПЕТРОВ ФОТОГРАФИЯ</div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-vk"></i></a>
+            <a href="#"><i class="fab fa-telegram"></i></a>
+            <a href="#"><i class="fab fa-behance"></i></a>
+        </div>
+        <p>&copy; 2023 Все права защищены</p>
+    </footer>
+
+    <!-- Иконки Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
